@@ -1,0 +1,10 @@
+<dl class="row">
+  <dt class="col-sm-2">Agency:</dt>
+  <dd class="col-sm-10"><%= @bank_account.bank_agency.number %></dd>
+  <dt class="col-sm-2">Number:</dt>
+  <dd class="col-sm-10"><%= @bank_account.number %></dd>
+  <dt class="col-sm-2">Limit:</dt>
+  <dd class="col-sm-10"><%= @bank_account.limit %></dd>
+</dl>
+<%= link_to 'Edit', edit_bank_account_path(@bank_account) %> |
+<%= link_to 'Back', bank_accounts_path %>

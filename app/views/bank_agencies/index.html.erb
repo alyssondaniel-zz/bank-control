@@ -1,0 +1,35 @@
+<h1>Agencies</h1>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Number</th>
+      <th>Zip</th>
+      <th>Street</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Country</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @bank_agencies.each do |bank_agency| %>
+      <tr>
+        <td><%= bank_agency.number %></td>
+        <td><%= bank_agency.zip %></td>
+        <td><%= bank_agency.street %></td>
+        <td><%= bank_agency.city %></td>
+        <td><%= bank_agency.state %></td>
+        <td><%= bank_agency.country %></td>
+        <td><%= link_to 'Show', bank_agency %></td>
+        <td><%= link_to 'Edit', edit_bank_agency_path(bank_agency) %></td>
+        <td><%= link_to 'Destroy', bank_agency, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Agency', new_bank_agency_path %>

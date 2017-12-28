@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded">
+  <div class="container">
+    <%= link_to "Intersol", root_url, class: "navbar-brand" %>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExample09">
+      <ul class="navbar-nav mr-auto">
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to "Accounts", bank_accounts_url, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Transactions", transactions_url, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Add Credit", new_type_transactions_url(type: :credit), class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Add Debit", new_type_transactions_url(type: :debit), class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Add Transfer", new_type_transactions_url(type: :transfer), class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Edit registration", edit_user_registration_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Logout", destroy_user_session_path, class: "nav-link", method: :delete %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "Sign in", new_user_session_path , class: "nav-link"%>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Register", new_user_registration_path, class: "nav-link"  %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </nav>

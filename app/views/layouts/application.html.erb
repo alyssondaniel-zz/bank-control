@@ -1,14 +1,74 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>TestApp</title>
-    <%= csrf_meta_tags %>
+<head>
+  <title>IntersolTeste</title>
+  <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
 
-  <body>
-    <%= yield %>
-  </body>
+<body>
+  <%= render "layouts/nav" %>
+  <div class="container">
+    <main role="main">
+      <div class="row">
+        <div class="col-8">
+          <% if notice %>
+          <div class="alert alert-info alert-dismissible fade show" role="alert">
+            <%= notice %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <% end %>
+          <% if alert %>
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <%= alert %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <% end %>
+          <% if current_user && current_user.bank_accounts.size == 0 %>
+          <div class="row justify-content-center">
+            <div class="col-12">
+              <div class="alert alert-warning" role="alert">
+                You do not have a bank account, click <%= link_to "here", new_bank_account_url %> to create.
+              </div>
+            </div>
+          </div>
+          <% end %>
+          <%= yield %>
+        </div>
+        <div class="col-4">
+          <% if current_user %>
+          <% current_bank_account = current_user.current_bank_account %>
+          <div class="row justify-content-end">
+            <div class="col-12">
+              <dl class="row">
+                <dt class="col-sm-3">Balance:</dt>
+                <dd class="col-sm-9"><%= current_bank_account ? current_bank_account.balance : 0.0 %></dd>
+                <dt class="col-sm-3">Agency:</dt>
+                <dd class="col-sm-9"><%= current_bank_account.bank_agency.number %></dd>
+                <dt class="col-sm-3">Account:</dt>
+                <dd class="col-sm-9">
+                  <%= form_with(url: change_current_account_bank_accounts_path, method: :patch, class: "form-inline") do |form| %>
+                    <%= form.select :bank_account_id, current_user.bank_accounts.collect {|account| [ account.number, account.id ] }, {selected: current_user.current_bank_account_id}, {id: :transaction_bank_account_id, class: "form-control mb-2 mr-sm-2 mb-sm-0 form-control-sm"} %>
+                    <%= form.submit "To change", class: "btn btn-primary btn-sm" %>
+                  <% end %>
+                </dd>
+              </dl>
+            </div>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    </main>
+  </div>
+  <footer class="container">
+    <p>&copy; Company 2017</p>
+  </footer>
+</body>
 </html>

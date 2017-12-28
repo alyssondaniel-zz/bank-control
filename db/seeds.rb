@@ -5,3 +5,5 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+BankAgency.create(number: "ABC123", zip: "10214", street: "47th", city: "Sunrise", state: "Florida", country: "EUA")
+BankAgency.create(number: "DEF456", zip: "10214", street: "47th", city: "Sunrise", state: "Florida", country: "EUA")

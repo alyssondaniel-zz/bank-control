@@ -1,0 +1,12 @@
+<dl class="row">
+  <dt class="col-sm-2">Account:</dt>
+  <dd class="col-sm-10"><%= @transaction.bank_account.number %></dd>
+  <dt class="col-sm-2">Amount:</dt>
+  <dd class="col-sm-10"><%= @transaction.amount %></dd>
+  <dt class="col-sm-2">Type:</dt>
+  <dd class="col-sm-10"><%= @transaction.transaction_type %></dd>
+  <dt class="col-sm-2">User:</dt>
+  <dd class="col-sm-10"><%= @transaction.user.username %></dd>
+</dl>
+<%= link_to 'Edit', edit_transaction_path(@transaction) %> |
+<%= link_to 'Back', transactions_path %>

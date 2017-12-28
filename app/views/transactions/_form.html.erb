@@ -1,0 +1,38 @@
+<%= form_with(model: transaction, local: true) do |form| %>
+  <%= form.hidden_field :transaction_type_key, value: params["type"] || "credit" %>
+  <% if transaction.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(transaction.errors.count, "error") %> prohibited this transaction from being saved:</h2>
+
+      <ul>
+      <% transaction.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <%= form.label :bank_account_id, "Account Source" %>
+        <%= form.select :bank_account_id, current_user.bank_accounts.collect {|account| [ account.number, account.id ] }, {}, {id: :transaction_bank_account_id, class: "form-control"} %>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <%= form.label :amount %>
+        <%= form.text_field :amount, id: :transaction_amount, class: "form-control" %>
+      </div>
+    </div>
+    <% if params["type"] == "transfer" %>
+    <div class="col">
+      <div class="form-group">
+        <%= form.label :bank_account_destination, "Account Destiny" %>
+        <%= form.select :bank_account_destination, BankAccount.all.collect {|account| [ account.number, account.id ] }, {}, {id: :transaction_bank_account_id, class: "form-control"} %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+  <%= form.submit class: "btn btn-primary" %>
+<% end %>
