@@ -53,9 +53,14 @@
                 <dd class="col-sm-9"><%= current_bank_account.bank_agency.number %></dd>
                 <dt class="col-sm-3">Account:</dt>
                 <dd class="col-sm-9">
+                  <% bank_accounts = current_user.bank_accounts %>
+                  <% if bank_accounts.size > 1 %>
                   <%= form_with(url: change_current_account_bank_accounts_path, method: :patch, class: "form-inline") do |form| %>
-                    <%= form.select :bank_account_id, current_user.bank_accounts.collect {|account| [ account.number, account.id ] }, {selected: current_user.current_bank_account_id}, {id: :transaction_bank_account_id, class: "form-control mb-2 mr-sm-2 mb-sm-0 form-control-sm"} %>
+                    <%= form.select :bank_account_id, bank_accounts.collect {|account| [ account.number, account.id ] }, {selected: current_user.current_bank_account_id}, {id: :transaction_bank_account_id, class: "form-control mb-2 mr-sm-2 mb-sm-0 form-control-sm"} %>
                     <%= form.submit "To change", class: "btn btn-primary btn-sm" %>
+                  <% end %>
+                  <% else %>
+                    <%= bank_accounts.first.number %>
                   <% end %>
                 </dd>
               </dl>
